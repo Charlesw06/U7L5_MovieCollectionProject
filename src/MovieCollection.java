@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Collections;
 
 public class MovieCollection
 {
@@ -175,7 +176,7 @@ public class MovieCollection
 
     private void searchCast()
     {
-        System.out.print("Enter an actor search term: ");
+        System.out.print("Enter a cast member: ");
         String searchTerm = scanner.nextLine();
         searchTerm = searchTerm.toLowerCase();
         ArrayList<String> actorResults = new ArrayList<String>();
@@ -186,6 +187,12 @@ public class MovieCollection
             }
         }
 
+        Collections.sort(actorResults);
+
+        for (int i = 1; i < actorResults.size()+1; i++) {
+            System.out.println(i + ". " + actorResults.get(i));
+        }
+        System.out.print("Which cast member would you like to learn more about?\nEnter number: ");
 
     }
 
