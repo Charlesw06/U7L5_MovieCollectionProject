@@ -10,6 +10,7 @@ public class MovieCollection
     private ArrayList<Movie> movies;
     private Scanner scanner;
     private ArrayList<String> actors;
+    private ArrayList<String> genres;
 
     public MovieCollection(String fileName)
     {
@@ -22,6 +23,14 @@ public class MovieCollection
             for (String actor : movieActors) {
                 if (!actors.contains(actor)) {
                     actors.add(actor);
+                }
+            }
+
+            String genre = m.getGenres();
+            String[] genreList = genre.split("\\|");
+            for (String g : genreList) {
+                if (!genres.contains(g)) {
+                    genres.add(g);
                 }
             }
         }
@@ -193,7 +202,23 @@ public class MovieCollection
             System.out.println(i + ". " + actorResults.get(i));
         }
         System.out.print("Which cast member would you like to learn more about?\nEnter number: ");
+        int index = Integer.parseInt(scanner.nextLine());
+        ArrayList<Movie> movieResults = new ArrayList<Movie>();
+        for (Movie m : movies) {
+            if (m.getCast().contains(actorResults.get(index))) {
+                movieResults.add(m);
+            }
+        }
+        for (int i = 1; i < movieResults.size()+1; i++) {
+            System.out.println(i + ". " + movieResults.get(i));
+        }
+        System.out.print("Which movie do you want to know more about?\nEnter number: ");
+        int selectedMovie = Integer.parseInt(scanner.nextLine());
 
+        displayMovieInfo(movieResults.get(selectedMovie));
+
+        System.out.println("\n ** Press Enter to Return to Main Menu **");
+        scanner.nextLine();
     }
 
     private void searchKeywords()
