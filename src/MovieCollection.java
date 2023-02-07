@@ -18,7 +18,7 @@ public class MovieCollection
         for (Movie m : movies) {
             actors = new ArrayList<String>();
             String cast = m.getCast();
-            String[] movieActors = cast.split("|");
+            String[] movieActors = cast.split("\\|");
             for (String actor : movieActors) {
                 if (!actors.contains(actor)) {
                     actors.add(actor);
