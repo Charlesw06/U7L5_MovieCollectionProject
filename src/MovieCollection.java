@@ -295,29 +295,26 @@ public class MovieCollection
 
     private void listHighestRated()
     {
-        ArrayList<Double> movieRatings = new ArrayList<Double>();
-        for (Movie m : movies) {
-            movieRatings.add(m.getUserRating());
+        ArrayList<Movie> topFiftyRated = new ArrayList<Movie>();
+        for (int i = 0; i < 50; i++) {
+            topFiftyRated.add(movies.get(i));
         }
-        Collections.sort(movieRatings);
-        Collections.reverse(movieRatings);
-        while (movieRatings.size() > 50) {
-            movieRatings.remove(50);
-        }
-        ArrayList<Movie> tempMovies = new ArrayList<Movie>();
-        for (int i = 1; i < movieRatings.size(); i++) {
-            int index = 0;
-            String title = movies.get(0).getTitle();
-            for (int a = 0; movies.get(a).getUserRating() != movieRatings.get(i-1); a++) {
-                title = movies.get(a).getTitle();
-                index = a;
+
+        for (int m = 0; m < movies.size(); m++) {
+            for (int i = 0; i < 50; i++) {
+                if (movies.get(m).getUserRating() >= topFiftyRated.get(i).getUserRating()) {
+                    topFiftyRated.add(i, movies.get(m));
+                    i = 50;
+                }
             }
-            tempMovies.add(movies.get(index));
-            System.out.println(i + ". " + title + ": " + movieRatings.get(i));
         }
-        System.out.print("Choose a title: ");
+        for (int i = 0; i < 50; i++) {
+            System.out.println(i+1 + ". " + topFiftyRated.get(i).getTitle() + ": " + topFiftyRated.get(i).getUserRating());
+        }
+        System.out.print("Choose a movie: ");
         int choiceNum = Integer.parseInt(scanner.nextLine());
-        displayMovieInfo(tempMovies.get(choiceNum-1));
+
+        displayMovieInfo(topFiftyRated.get(choiceNum-1));
         System.out.println("\n ** Press Enter to Return to Main Menu **");
         scanner.nextLine();
     }
