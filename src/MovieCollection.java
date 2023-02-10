@@ -295,6 +295,7 @@ public class MovieCollection
 
     private void listHighestRated()
     {
+        sortResults(movies);
         ArrayList<Movie> topFiftyRated = new ArrayList<Movie>();
         for (int i = 0; i < 50; i++) {
             topFiftyRated.add(movies.get(i));
